@@ -25,8 +25,6 @@ class Homescreen extends StatelessWidget {
       throw Exception('Failed to load coins');
     }
   }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
