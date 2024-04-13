@@ -1,13 +1,12 @@
- import 'dart:convert';
- import 'package:flutter/cupertino.dart';
- import 'package:flutter/material.dart';
- import 'package:flutter/widgets.dart';
- import 'package:http/http.dart' as http;
- import '../../modals/coin_modals.dart';
+import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
+import '../../modals/coin_modals.dart';
 
 class Homescreen extends StatelessWidget {
   Homescreen({super.key});
-
 
   List<Coin> coinlist = [];
   Future<List<Coin>> getPostApi() async {
@@ -25,6 +24,7 @@ class Homescreen extends StatelessWidget {
       throw Exception('Failed to load coins');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +37,7 @@ class Homescreen extends StatelessWidget {
               height: 60,
             ),
             Text(
-              "Crypto Tracker",
+              "Crypto Tracker App",
               style: TextStyle(
                   fontSize: 24.0,
                   color: Colors.white,
@@ -62,9 +62,6 @@ class Homescreen extends StatelessWidget {
                 ),
               ),
             ),
-
-
-
             Expanded(
               child: FutureBuilder(
                   future: getPostApi(),
@@ -80,18 +77,19 @@ class Homescreen extends StatelessWidget {
                           itemBuilder: (BuildContext context, int index) {
                             Coin coin = coinlist[index];
                             return Container(
-                              color: Colors.grey,
+                              color: Colors.grey[600],
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.start,
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.grey,
+                                      color: Colors.grey[600],
                                       borderRadius: BorderRadius.circular(2),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsets.fromLTRB(10, 2,9, 10),
+                                      padding:
+                                          EdgeInsets.fromLTRB(10, 2, 9, 10),
                                       child: Image.network(
                                         coinlist[index].image,
                                         width:
@@ -103,21 +101,42 @@ class Homescreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
+                                  SizedBox(width: 10,),
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text("${coinlist[index].name}"),
                                       Text(
-                                          "${coinlist[index].priceChangePercentage24H}%")
+                                        "${coinlist[index].name}",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                          "${coinlist[index].priceChangePercentage24H}%",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600)),
                                     ],
                                   ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text("\$${coinlist[index].currentPrice}"),
-                                      Text("${coinlist[index].symbol}%")
-                                    ],
+                                  SizedBox(width: 60,),
+                                  Container(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        Text("\$${coinlist[index].currentPrice}", style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600)),
+                                        Text("${coinlist[index].symbol}%" , style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600))
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
